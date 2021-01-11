@@ -1,0 +1,23 @@
+.related-posts{
+	display: flex;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+.related-posts img{
+	border: 3px solid #ccc;
+	margin: 10px;
+	padding: 3px;
+	transition: border .5s;
+}
+.related-posts a:hover img{
+	border: 3px solid #000;
+}
+.tooltip {
+	display: none;
+	background: transparent url(../images/black_arrow.png);
+	font-size: 14px;
+	height: 70px;
+	width: 160px;
+	padding: 25px;
+	color: #fff;
+}
