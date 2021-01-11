@@ -42,24 +42,26 @@ function wfm_captcha_login(){
 	echo '<p><label for="check"><input type="checkbox" name="check" id="check" value="check" checked> Снимите галочку</label></p>';
 }*/
 
-add_action( 'login_form', 'wfm_captcha_login' );
-add_filter( 'authenticate', 'wp_auth_signon', 30, 3 );
+add_action('login_form', 'wfm_captcha_login');
+add_filter('authenticate', 'wp_auth_signon', 30, 3);
 
-function wp_auth_signon($user, $username, $password){
-    echo '<pre>';
-    print_r($user);
-    echo '</pre>';
+function wp_auth_signon($user, $username, $password)
+{
+//    echo '<pre>';
+//    print_r($user);
+//    echo '</pre>';
 
-	if( isset( $_POST['check'] ) && $_POST['check'] == 'check' ){
-		$user = new WP_Error('broke', '<b>Ошибка</b>: вы бот?');
-	}
+    if (isset($_POST['check']) && $_POST['check'] == 'check') {
+        $user = new WP_Error('broke', '<b>Ошибка</b>: вы бот?');
+    }
 
-	if( isset( $user->errors['invalid_username'] ) || isset( $user->errors['incorrect_password'] ) ){
-		return new WP_Error('broke', '<b>Ошибка</b>: неверный логин/пароль');
-	}
-	return $user;
+    if (isset($user->errors['invalid_username']) || isset($user->errors['incorrect_password'])) {
+        $user = new WP_Error('broke', '<b>Ошибка</b>: неверный логин/пароль');
+    }
+    return $user;
 }
 
-function wfm_captcha_login(){
-	echo '<p><label for="check"><input type="checkbox" name="check" id="check" value="check" checked> Снимите галочку</label></p>';
+function wfm_captcha_login()
+{
+    echo '<p><label for="check"><input type="checkbox" name="check" id="check" value="check" checked> Снимите галочку</label></p>';
 }
