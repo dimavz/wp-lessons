@@ -6,8 +6,13 @@ Plugin URI: http://webformyself.com
 Author: Андрей
 Author URI: http://webformyself.com
 */
-
+add_action( 'wp_head', 'wfm_render_title_tag', 1 );
 add_filter( 'wp_title', 'wfm_title', 20 );
+
+
+function wfm_render_title_tag() {
+    echo '<title>'.wp_title('&raquo;',false).'</title>' . "\n";
+}
 
 function wfm_title($title){
 	$title = null;
@@ -39,12 +44,42 @@ function wfm_title($title){
 		$title = array('Страница не найдена');
 	}
 
+	// категория
+	elseif( is_category() ){
+		// ID категории
+		$cat_id = get_query_var( 'cat' );
+		// данные категории
+		$cat = get_category($cat_id);
+		if( $cat->parent ){
+			// если есть родительская категория
+			$categories = rtrim( get_category_parents( $cat_id, false, $sep ), $sep );
+			$categories = explode($sep, $categories);
+			$title = array_reverse($categories);
+			$title[] = $site;
+		}else{
+			// если это самостоятельная категория
+			$title = array( $cat->name, $site );
+		}
+	}
+
+	// запись
+	if( is_single() ){
+		// массив данных о категориях
+		$category = get_the_category();
+		// ID категории
+		$cat_id = $category[0]->cat_ID;
+		// родительские категории
+		$categories = rtrim( get_category_parents( $cat_id, false, $sep ), $sep );
+		$categories = explode($sep, $categories);
+		$categories[] = get_the_title();
+		$title = array_reverse($categories);
+		$title[] = $site;
+	}
+
 	// архив
 	elseif( is_archive() ){
 		$title = array( 'Архив за: ' . get_the_time("F Y"), $site );
 	}
-
-
 
 	$title = implode($sep, $title);
 	return $title;
