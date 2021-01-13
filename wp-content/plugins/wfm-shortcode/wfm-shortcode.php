@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Плагин тестового шорткода
-Description: Для вывода шорткода используйте: [test name="Nicolay" login="nicola"]Контент шоркода[/test]
+Description: Для вывода шорткода используйте следующую конструкцию: [test name="Nicolay" login="nicola"]Контент шорткода[/test]
 Plugin URI: http://webformyself.com
 Author: Дмитрий
 Author URI: http://webformyself.com
