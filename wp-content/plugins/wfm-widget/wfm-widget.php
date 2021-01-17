@@ -30,38 +30,48 @@ class WFM_Widget extends WP_Widget{
 		parent::__construct('wfm_fw', '', $args);
 	}
 
-    function widget( $args, $instance ) {
-//	    echo '<pre>';
-//	    print_r($args);
-//	    print_r($instance);
-//	    echo '</pre>';
-////	    exit();
-        echo $args['before_widget'];
-        if ( ! empty( $instance['title'] ) ) {
-            echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
-        }
-        echo esc_html__( 'Hello, World!', 'text_domain' );
-        echo $args['after_widget'];
-    }
+	function widget($args, $instance){
+		extract($args);
+		extract($instance);
+
+		$title = apply_filters( 'widget_title', $title );
+		$text = apply_filters( 'widget_text', $text );
+
+		echo $before_widget;
+		echo $before_title . $title . $after_title;
+		echo "<div>$text</div>";
+		echo $after_widget;
+	}
 
 	function form($instance){
-	    echo '<pre>';
-	    print_r($instance);
-	    echo '</pre>';
-//	    exit();
 		extract($instance);
 		?>
-
+		
 		<p>
 			<label for="<?php echo $this->get_field_id('title') ?>">Заголовок:</label>
 			<input type="text" name="<?php echo $this->get_field_name('title') ?>" id="<?php echo $this->get_field_id('title') ?>" value="<?php if( isset($title) ) echo esc_attr( $title ); ?>" class="widefat">
 		</p>
-        <p>
-			<label for="<?php echo $this->get_field_id('rows') ?>">Количество:</label>
-			<input type="number" step="1" min="1" size="3" name="<?php echo $this->get_field_name('rows') ?>" id="<?php echo $this->get_field_id('rows') ?>" value="<?php if( isset($rows) ) echo esc_attr( $rows ); ?>" class="tiny-text">
+
+		<p>
+			<label for="<?php echo $this->get_field_id('text') ?>">Текст:</label>
+			<textarea class="widefat" name="<?php echo $this->get_field_name('text') ?>" id="<?php echo $this->get_field_id('text') ?>" cols="20" rows="5"><?php if( isset($text) ) echo esc_attr( $text ); ?></textarea>
 		</p>
 
 		<?php
+	}
+
+	function update($new_instance, $old_instance){
+//        echo '<pre>';
+//        print_r($new_instance);
+//        echo '</pre>';
+//	    echo '<pre>';
+//	    print_r($old_instance);
+//	    echo '</pre>';
+//	    exit();
+		$new_instance['title'] = !empty($new_instance['title']) ? strip_tags($new_instance['title']) : '';
+		$new_instance['text'] = str_replace('<p>', '', $new_instance['text']);
+		$new_instance['text'] = str_replace('</p>', '<br>', $new_instance['text']);
+		return $new_instance;
 	}
 
 }
