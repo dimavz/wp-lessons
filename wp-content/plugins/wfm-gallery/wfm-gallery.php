@@ -58,24 +58,36 @@ function wfm_add_styles_scripts(){
 }
 
 function wfm_gallery($atts){
-	$options = get_option( 'wfm_gallery_options' );
-	$img_id = explode(',', $atts['ids']);
-	if( !$img_id[0] ) return '<div class="wfm-gallery"><h3>' . $options['gallery_option_title'] . '</h3>' . $options['gallery_option_text'] . '</div>';
-	$html = '<div class="wfm-gallery"><h3>' . $options['gallery_option_title'] . '</h3>';
-	foreach($img_id as $item){
-		$img_data = get_posts( array(
-			'p' => $item,
-			'post_type' => 'attachment'
-		) );
+//    echo '<pre>';
+//    print_r($atts);
+//    echo '</pre>';
+//    exit();
+    $html = '';
+    $options = get_option( 'wfm_gallery_options' );
+    if(!empty($atts))
+    {
+        $img_id = explode(',', $atts['ids']);
 
-		$img_desc = $img_data[0]->post_content;
-		$img_caption = $img_data[0]->post_excerpt;
-		$img_title = $img_data[0]->post_title;
-		$img_thumb = wp_get_attachment_image_src( $item );
-		$img_full = wp_get_attachment_image_src( $item, 'full' );
+        if( empty($atts) && !$img_id[0] ) return '<div class="wfm-gallery"><h3>' . $options['gallery_option_title'] . '</h3>' . $options['gallery_option_text'] . '</div>';
+        $html = '<div class="wfm-gallery"><h3>' . $options['gallery_option_title'] . '</h3>';
+        foreach($img_id as $item){
+            $img_data = get_posts( array(
+                'p' => $item,
+                'post_type' => 'attachment'
+            ) );
 
-		$html .= "<a href='{$img_full[0]}' data-lightbox='gallery' data-title='{$img_caption}'><img src='{$img_thumb[0]}' width='{$img_thumb[1]}' height='{$img_thumb[2]}' alt='{$img_title}'></a>";
-	}
-	$html .= '</div>';
+            $img_desc = $img_data[0]->post_content;
+            $img_caption = $img_data[0]->post_excerpt;
+            $img_title = $img_data[0]->post_title;
+            $img_thumb = wp_get_attachment_image_src( $item );
+            $img_full = wp_get_attachment_image_src( $item, 'full' );
+
+            $html .= "<a href='{$img_full[0]}' data-lightbox='gallery' data-title='{$img_caption}'><img src='{$img_thumb[0]}' width='{$img_thumb[1]}' height='{$img_thumb[2]}' alt='{$img_title}'></a>";
+        }
+        $html .= '</div>';
+    }
+    else{
+        return '<div class="wfm-gallery"><h3>' . $options['gallery_option_title'] . '</h3>' . $options['gallery_option_text'] . '</div>';
+    }
 	return $html;
 }

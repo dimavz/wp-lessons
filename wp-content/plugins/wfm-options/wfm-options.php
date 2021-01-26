@@ -39,6 +39,11 @@ function wfm_option_cb(){
 
 add_action( 'admin_init', 'wfm_theme_options' );
 add_action( 'wp_enqueue_scripts', 'wfm_scripts_styles' );
+register_deactivation_hook( __FILE__, 'wfm_delete_options' );
+
+function wfm_delete_options(){
+	delete_option( 'wfm_theme_options' );
+}
 
 function wfm_scripts_styles(){
 	$wfm_theme_options = get_option( 'wfm_theme_options' );
