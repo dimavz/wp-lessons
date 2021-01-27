@@ -49,7 +49,9 @@ function wfm_theme_options_sanitize($options){
 
 function wfm_admin_menu(){
 	// $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position
-	add_menu_page( 'Опции темы (title)', 'Опции темы', 'manage_options', 'wfm-theme-options', 'wfm_option_page', plugins_url( 'wfm-ico.png', __FILE__ ) );
+    //	add_menu_page( 'Опции темы (title)', 'Опции темы', 'manage_options', 'wfm-theme-options', 'wfm_option_page', 'dashicons-art');
+	add_menu_page( 'Опции темы (title)', 'Опции темы', 'manage_options', 'wfm-theme-options', 'wfm_option_page', plugins_url( 'wfm-ico.png', __FILE__ ),61);
+
 }
 
 function wfm_option_page(){
