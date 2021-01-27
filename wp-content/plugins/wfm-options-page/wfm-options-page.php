@@ -7,8 +7,21 @@ Author: Андрей
 Author URI: http://webformyself.com
 */
 
+register_deactivation_hook( __FILE__, 'wfm_delete_options' );
+add_action( 'wp_enqueue_scripts', 'wfm_scripts_styles' );
 add_action( 'admin_menu', 'wfm_admin_menu' );
 add_action( 'admin_init', 'wfm_admin_settings' );
+
+function wfm_delete_options(){
+    delete_option( 'wfm_theme_options' );
+}
+
+function wfm_scripts_styles(){
+    $wfm_theme_options = get_option( 'wfm_theme_options' );
+    wp_register_script( 'wfm-options-page', plugins_url('wfm-options.js', __FILE__), array('jquery') );
+    wp_enqueue_script( 'wfm-options-page' );
+    wp_localize_script( 'wfm-options-page', 'wfmObj', $wfm_theme_options );
+}
 
 function wfm_admin_settings(){
 	// $option_group, $option_name, $sanitize_callback
