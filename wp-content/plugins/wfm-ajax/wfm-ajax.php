@@ -10,6 +10,11 @@ Author URI: http://webformyself.com
 add_action( 'admin_menu', 'wfm_admin_menu' );
 add_action( 'admin_init', 'wfm_admin_settings' );
 
+function wfm_admin_scripts(){
+	wp_register_script( 'wfm-scripts', plugins_url( 'wfm-scripts.js', __FILE__ ), array('jquery') );
+	wp_enqueue_script( 'wfm-scripts' );
+}
+
 function wfm_admin_settings(){
 	register_setting( 'wfm_theme_options_group', 'wfm_theme_options' );
 
@@ -19,7 +24,12 @@ function wfm_admin_settings(){
 }
 
 function wfm_admin_menu(){
-	add_options_page( 'Опции темы', 'Опции (AJAX)', 'manage_options', 'wfm-theme-options', 'wfm_options_page' );
+	$hook_suffix = add_options_page( 'Опции темы', 'Опции (AJAX)', 'manage_options', 'wfm-theme-options', 'wfm_options_page' );
+//	echo '<pre>';
+//	print_r($hook_suffix);
+//	echo '</pre>';
+//	exit();
+	add_action( 'admin_print_scripts-' . $hook_suffix, 'wfm_admin_scripts' ); // Подключение скрипта только к странице плагина в админке
 }
 
 function wfm_theme_body_cb(){
