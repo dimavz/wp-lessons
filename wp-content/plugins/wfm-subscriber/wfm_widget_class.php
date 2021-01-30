@@ -30,8 +30,9 @@ class WFM_Widget_Subscriber extends WP_Widget{
 		<input type="text" name="wfm_email" id="wfm_email">
 	</p>
 	<p>
-		<input type="submit" id="wfm_submit" name="wfm_submit" value="Подписаться"> <span id="loader" style="display: none;"><img src="<?php echo plugins_url( 'img/loader.gif', __FILE__ ); ?>" alt=""></span><div id="res"></div>
+		<input type="submit" id="wfm_submit" name="wfm_submit" value="Подписаться"> <span id="loader" style="display: none;"><img src="<?php echo plugins_url( 'img/loader.gif', __FILE__ ); ?>" alt=""></span>
 	</p>
+	<div id="res"></div>
 </form>
 		<?php
 		echo $after_widget;

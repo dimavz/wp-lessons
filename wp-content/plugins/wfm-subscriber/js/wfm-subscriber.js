@@ -16,6 +16,7 @@ jQuery(document).ready(function($){
 			success: function(res){
 				$('#loader').fadeOut(300, function(){
 					$('#res').text(res);
+					$('#wfm_form_subscriber').find('input:not(#wfm_submit)').val('');
 				});
 			},
 			error: function(){

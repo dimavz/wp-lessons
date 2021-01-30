@@ -7,17 +7,27 @@ function wfm_ajax_subscriber(){
 
 	parse_str($_POST['formData'], $wfm_array);
 
-//	echo '<pre>';
-//	print_r($wfm_array);
-//	echo '</pre>';
-//	exit();
-
 	if( empty($wfm_array['wfm_name']) || empty($wfm_array['wfm_email']) ){
 		exit('Заполните поля!');
 	}
 
 	if( !is_email( $wfm_array['wfm_email'] ) ){
 		exit('Email не соответствует формату');
+	}
+
+	global $wpdb;
+	if($wpdb->get_var($wpdb->prepare(
+		"SELECT subscriber_id FROM wfm_subscriber WHERE subscriber_email = %s", $wfm_array['wfm_email']
+	))){
+		echo 'Вы уже подписаны';
+	}else{
+		if($wpdb->query($wpdb->prepare(
+			"INSERT INTO wfm_subscriber (subscriber_name, subscriber_email) VALUES (%s, %s)", $wfm_array['wfm_name'], $wfm_array['wfm_email']
+		))){
+			echo 'Подписка оформлена';
+		}else{
+			echo 'Ошибка записи!';
+		}
 	}
 
 	die;
