@@ -8,9 +8,12 @@ Author URI: http://webformyself.com
 */
 
 include dirname(__FILE__) . '/wfm_widget_class.php';
+include dirname(__FILE__) . '/wfm_ajax_funcs.php';
 
 register_activation_hook( __FILE__, 'wfm_create_table' );
 add_action( 'widgets_init', 'wfm_widget_subscriber' );
+add_action( 'wp_ajax_wfm_subscriber', 'wfm_ajax_subscriber' );
+add_action( 'wp_ajax_nopriv_wfm_subscriber', 'wfm_ajax_subscriber' );
 
 function wfm_create_table(){
 	global $wpdb;
@@ -30,4 +33,5 @@ function wfm_widget_subscriber(){
 function wfm_subscriber_scripts(){
 	wp_register_script( 'wfm-subscriber', plugins_url( 'js/wfm-subscriber.js', __FILE__ ), array('jquery') );
 	wp_enqueue_script( 'wfm-subscriber' );
+	wp_localize_script( 'wfm-subscriber', 'wfmajax', array( 'url' => admin_url( 'admin-ajax.php' ), 'nonce' => wp_create_nonce( 'wfmajax' ) ) );
 }
