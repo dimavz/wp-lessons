@@ -26,3 +26,8 @@ function wfm_create_table(){
 function wfm_widget_subscriber(){
 	register_widget( 'WFM_Widget_Subscriber' );
 }
+
+function wfm_subscriber_scripts(){
+	wp_register_script( 'wfm-subscriber', plugins_url( 'js/wfm-subscriber.js', __FILE__ ), array('jquery') );
+	wp_enqueue_script( 'wfm-subscriber' );
+}
