@@ -7,7 +7,7 @@ jQuery(document).ready(function($){
 			data: {
 				formData: data,
 				security: wfmajax.nonce,
-				action: 'wfm_subscriber' // Отправка динамичного названия части метода обработки AJAX запроса (Метод wp_ajax_wfm_subscriber)
+				action: 'wfm_subscriber'
 			},
 			beforeSend: function(){
 				$('#res').empty();

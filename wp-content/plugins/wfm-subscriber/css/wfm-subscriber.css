@@ -1,0 +1,26 @@
+#wfm-table,
+.wfm-text{
+	width: 50%;
+}
+#wfm-table thead tr{
+	background: #ccc;
+}
+#wfm-table tbody td{
+	border-bottom: 1px solid #ccc;
+}
+
+button.btn{
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 6px 12px;
+	text-decoration: none;
+	background: #dcdcdc linear-gradient(#fff, #dcdcdc);
+	color: #000;
+	cursor: pointer;
+	transition: all .3s;
+}
+
+button.btn:hover{
+	background: #dcdcdc linear-gradient(#dcdcdc, #fff);
+	box-shadow: 0 0 2px #aaa;
+}
