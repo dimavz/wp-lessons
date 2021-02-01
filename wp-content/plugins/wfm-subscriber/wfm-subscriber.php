@@ -16,6 +16,7 @@ add_action( 'widgets_init', 'wfm_widget_subscriber' );
 add_action( 'wp_ajax_wfm_subscriber', 'wfm_ajax_subscriber' );
 add_action( 'wp_ajax_nopriv_wfm_subscriber', 'wfm_ajax_subscriber' );
 add_action( 'admin_menu', 'wfm_admin_menu' );
+add_action( 'wp_ajax_wfm_subscriber_admin', 'wfm_ajax_subscriber_admin' );
 
 function wfm_create_table(){
 	global $wpdb;

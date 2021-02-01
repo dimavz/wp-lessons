@@ -1,5 +1,18 @@
 <?php
 
+function wfm_ajax_subscriber_admin(){
+	if( empty($_POST['data']) ){
+		echo 'Заполните текст рассылки';
+	}
+	$subscribers = get_subscribers(true);
+	$i = 0;
+	foreach($subscribers as $subscriber){
+		$data = nl2br( str_replace('%name%', $subscriber['subscriber_name'], $_POST['data']) );
+		if( wp_mail( $subscriber['subscriber_email'], 'Рассылка с сайта', $data ) ) $i++;
+	}
+	die("Рассылка сделана. Отправлено писем {$i}");
+}
+
 function wfm_ajax_subscriber(){
 	if( !wp_verify_nonce( $_POST['security'], 'wfmajax' ) ){
 		die('Ошибка безопасности!');

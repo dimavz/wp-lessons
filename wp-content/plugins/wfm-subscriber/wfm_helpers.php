@@ -3,9 +3,13 @@
 /**
 * получение подписчиков
 **/
-function get_subscribers(){
+function get_subscribers($all = false){
 	global $wpdb;
 	$pagination_params = pagination_params();
+
+	if($all){
+		return $wpdb->get_results("SELECT * FROM wfm_subscriber", ARRAY_A);
+	}
 
 	return $wpdb->get_results("SELECT * FROM wfm_subscriber LIMIT {$pagination_params['start_pos']}, {$pagination_params['perpage']}", ARRAY_A);
 }
