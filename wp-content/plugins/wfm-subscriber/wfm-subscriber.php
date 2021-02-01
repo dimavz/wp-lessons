@@ -53,10 +53,13 @@ function wfm_subscriber_page(){
 	?>
 <div class="wrap">
 	<h2>Подписчики</h2>
-	<?php $subscribers = get_subscribers(); ?>
+	<?php
+		$pagination_params = pagination_params();
+		$subscribers = get_subscribers();
+	?>
 
-	<?php if(!empty($subscribers)): ?>
-		<p><b>Кол-во подписчиков: <?php echo count($subscribers)?></b></p>
+	<?php if($subscribers): ?>
+		<p><b>Кол-во подписчиков: <?php echo $pagination_params['count'] ?></b></p>
 
 <table class="wp-list-table widefat fixed posts" id="wfm-table">
 	<thead>
@@ -76,6 +79,14 @@ function wfm_subscriber_page(){
 	<?php endforeach; ?>
 	</tbody>
 </table>
+
+<!-- Пагинация -->
+<?php if( $pagination_params['count_pages'] > 1 ): ?>
+<div class="pagination">
+	<?php echo pagination($pagination_params['page'], $pagination_params['count_pages']); ?>
+</div>
+<?php endif; ?>
+<!-- Пагинация -->
 
 <p>
 	<label for="wfm_text">Текст рассылки (для имени используйте шаблон %name%)</label> <br>
