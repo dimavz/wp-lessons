@@ -23,6 +23,11 @@ function wfm_subscriber_create_table(){
 		PRIMARY KEY (`subscriber_id`)
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 	$wpdb->query($query);
+	update_option( 'wfm_subscriber_options', array(
+		'perpage' => 5,
+		'limit' => 50,
+		'schedule' => 3600
+	) );
 }
 
 function wfm_subscriber_deactivate(){
@@ -31,10 +36,11 @@ function wfm_subscriber_deactivate(){
 
 function wfm_subscriber_admin_menu(){
 	// $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position
-	add_menu_page( 'Настройки плагина', 'Подписчики', 'manage_options', 'wfm-subscriber-options', 'wfm_subscriber_options_menu', 'dashicons-groups' );
+	add_menu_page( 'Настройки плагина Рассылка', 'Рассылка', 'manage_options', 'wfm-subscriber-options', 'wfm_subscriber_options_menu', 'dashicons-email-alt' );
 
 	// $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function
-	add_submenu_page( 'wfm-subscriber-options', 'Подписчики + Рассылка', 'Рассылка', 'manage_options', 'wfm-subscriber-subpage', 'wfm_subscriber_subpage' );
+	add_submenu_page( 'wfm-subscriber-options', 'Параметры', 'Параметры', 'manage_options', 'wfm-subscriber-options', 'wfm_subscriber_options_menu' );
+	add_submenu_page( 'wfm-subscriber-options', 'Подписчики', 'Подписчики', 'manage_options', 'wfm-subscriber-subpage', 'wfm_subscriber_subpage' );
 }
 
 function wfm_subscriber_admin_settings(){
@@ -46,21 +52,56 @@ function wfm_subscriber_admin_settings(){
 
 	// $id, $title, $callback, $page, $section, $args
 	add_settings_field( 'wfm_setting_perpage_id', 'Кол-во подписчиков на страницу', 'wfm_subscriber_perpage_cb', 'wfm-subscriber-options', 'wfm_subscriber_section_id', array( 'label_for' => 'wfm_setting_perpage_id' ) );
+
+	add_settings_field( 'wfm_setting_subscriber_limit_id', 'Рассылать  кол-во писем за раз', 'wfm_subscriber_limit_cb', 'wfm-subscriber-options', 'wfm_subscriber_section_id', array( 'label_for' => 'wfm_setting_subscriber_limit_id' ) );
+
+	add_settings_field( 'wfm_setting_schedule_id', 'Пауза между частями одной рассылки', 'wfm_subscriber_schedule_cb', 'wfm-subscriber-options', 'wfm_subscriber_section_id', array( 'label_for' => 'wfm_setting_schedule_id' ) );
 }
 
-function wfm_subscriber_sanitize(){
-
+function wfm_subscriber_sanitize($options){
+	$clean_options = array();
+	$schedule = array(60, 120, 300, 900, 1800, 2700, 3600);
+	$clean_options['perpage'] = ( (int)$options['perpage'] > 0 ) ? (int)$options['perpage'] : 2;
+	$clean_options['limit'] = ( (int)$options['limit'] > 0 ) ? (int)$options['limit'] : 50;
+	if( in_array($options['schedule'], $schedule) ){
+		$clean_options['schedule'] = $options['schedule'];
+	}else{
+		$clean_options['schedule'] = 3600;
+	}
+	return $clean_options;
 }
 
 function wfm_subscriber_perpage_cb(){
 	$options = get_option( 'wfm_subscriber_options' );
-//	echo '<pre>';
-//	print_r($options);
-//	echo '</pre>';
-//	exit();
 	?>
 <p>
 	<input type="text" name="wfm_subscriber_options[perpage]" id="wfm_setting_perpage_id" value="<?php echo $options['perpage'] ?>" class="regular-text">
+</p>
+	<?php
+}
+
+function wfm_subscriber_limit_cb(){
+	$options = get_option( 'wfm_subscriber_options' );
+	?>
+<p>
+	<input type="text" name="wfm_subscriber_options[limit]" id="wfm_setting_subscriber_limit_id" value="<?php echo $options['limit'] ?>" class="regular-text">
+</p>
+	<?php
+}
+
+function wfm_subscriber_schedule_cb(){
+	$options = get_option( 'wfm_subscriber_options' );
+	?>
+<p>
+	<select name="wfm_subscriber_options[schedule]" id="wfm_setting_schedule_id">
+		<option value="60" <?php selected( '60', $options['schedule'], true ); ?>>1 минута</option>
+		<option value="120" <?php selected( '120', $options['schedule'], true ); ?>>2 минуты</option>
+		<option value="300" <?php selected( '300', $options['schedule'], true ); ?>>5 минут</option>
+		<option value="900" <?php selected( '900', $options['schedule'], true ); ?>>15 минут</option>
+		<option value="1800" <?php selected( '1800', $options['schedule'], true ); ?>>30 минут</option>
+		<option value="2700" <?php selected( '2700', $options['schedule'], true ); ?>>45 минут</option>
+		<option value="3600" <?php selected( '3600', $options['schedule'], true ); ?>>1 час</option>
+	</select>
 </p>
 	<?php
 }
