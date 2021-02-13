@@ -7,10 +7,16 @@ Author: Андрей
 Author URI: http://webformyself.com
 */
 
+include dirname(__FILE__) . '/wfm_widget_class.php';
+include dirname(__FILE__) . '/wfm_ajax_funcs.php';
+include dirname(__FILE__) . '/wfm_helpers.php';
+include dirname(__FILE__) . '/wfm-subscriber-subpage.php';
+
 register_activation_hook( __FILE__, 'wfm_subscriber_create_table' );
 register_deactivation_hook( __FILE__, 'wfm_subscriber_deactivate' );
 add_action( 'admin_menu', 'wfm_subscriber_admin_menu' );
 add_action( 'admin_init', 'wfm_subscriber_admin_settings' );
+add_action( 'widgets_init', 'wfm_widget_subscriber' );
 
 function wfm_subscriber_create_table(){
 	global $wpdb;
@@ -18,7 +24,7 @@ function wfm_subscriber_create_table(){
 		`subscriber_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 		`subscriber_name` varchar(50) NOT NULL,
 		`subscriber_email` varchar(50) NOT NULL,
-		`text` text,
+		`text` text NOT NULL,
 		`send` enum('0','1','2') NOT NULL DEFAULT '0',
 		PRIMARY KEY (`subscriber_id`)
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
@@ -34,6 +40,10 @@ function wfm_subscriber_deactivate(){
 
 }
 
+function wfm_widget_subscriber(){
+	register_widget( 'WFM_Widget_Subscriber' );
+}
+
 function wfm_subscriber_admin_menu(){
 	// $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position
 	add_menu_page( 'Настройки плагина Рассылка', 'Рассылка', 'manage_options', 'wfm-subscriber-options', 'wfm_subscriber_options_menu', 'dashicons-email-alt' );
@@ -41,6 +51,8 @@ function wfm_subscriber_admin_menu(){
 	// $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function
 	add_submenu_page( 'wfm-subscriber-options', 'Параметры', 'Параметры', 'manage_options', 'wfm-subscriber-options', 'wfm_subscriber_options_menu' );
 	add_submenu_page( 'wfm-subscriber-options', 'Подписчики', 'Подписчики', 'manage_options', 'wfm-subscriber-subpage', 'wfm_subscriber_subpage' );
+
+    add_action( 'admin_enqueue_scripts', 'wfm_admin_scripts' );
 }
 
 function wfm_subscriber_admin_settings(){
@@ -117,8 +129,4 @@ function wfm_subscriber_options_menu(){
 	</form>
 </div>
 	<?php
-}
-
-function wfm_subscriber_subpage(){
-
 }
