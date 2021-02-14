@@ -38,7 +38,7 @@ function wfm_subscriber_create_table(){
 }
 
 function wfm_subscriber_deactivate(){
-
+	wp_clear_scheduled_hook( 'wfm_cron_action' );
 }
 
 function wfm_widget_subscriber(){

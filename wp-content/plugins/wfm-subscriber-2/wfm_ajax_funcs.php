@@ -53,19 +53,9 @@ function wfm_ajax_subscriber_admin()
     ));
 
     $count_subscribers = $wpdb->get_var("SELECT COUNT(*) FROM wfm_subscriber");
-//    echo '<pre>';
-//    print_r($schedule);
-//    echo '</pre>';
-//    exit();
     $need_time = ceil($count_subscribers / $limit) * $schedule;
     $need_time = date("H:i:s", mktime(0, 0, $need_time));
 
-    /*$subscribers = get_subscribers(true);
-    $i = 0;
-    foreach($subscribers as $subscriber){
-        $data = nl2br( str_replace('%name%', $subscriber['subscriber_name'], $_POST['data']) );
-        if( wp_mail( $subscriber['subscriber_email'], 'Рассылка с сайта', $data ) ) $i++;
-    }*/
     die("Рассылка поставлена в очередь. Ориентировочное время рассылки (ЧЧ:ММ:СС): {$need_time}");
 }
 
