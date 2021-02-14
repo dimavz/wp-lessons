@@ -5,6 +5,30 @@ function wfm_ajax_subscriber_admin(){
 		echo 'Заполните текст рассылки';
 	}
 
+	$time = wp_next_scheduled( 'wfm_cron_action' );
+	wp_unschedule_event( $time, 'wfm_cron_action' );
+
+	if( !wp_next_scheduled( 'wfm_cron_action' ) ){
+		$options = get_option( 'wfm_subscriber_options' );
+		$schedule = $options['schedule'];
+		$limit = $options['limit'];
+		$schedules = wp_get_schedules();
+//		echo '<pre>';
+//		print_r($schedules);
+//		echo '</pre>';
+//		exit();
+        $schedule_interval = 3600;
+		foreach($schedules as $k => $v){
+			if( $v['interval'] == $schedule ){
+				$schedule_interval = $k;
+				break;
+			}
+		}
+//		echo $schedule_interval;
+//		exit;
+		wp_schedule_event( time(), $schedule_interval, 'wfm_cron_action' );
+	}
+
 	/*$subscribers = get_subscribers(true);
 	$i = 0;
 	foreach($subscribers as $subscriber){

@@ -11,6 +11,7 @@ include dirname(__FILE__) . '/wfm_widget_class.php';
 include dirname(__FILE__) . '/wfm_ajax_funcs.php';
 include dirname(__FILE__) . '/wfm_helpers.php';
 include dirname(__FILE__) . '/wfm-subscriber-subpage.php';
+include dirname(__FILE__) . '/wfm-subscriber-schedule.php'; // Подключаем файл с дополнительными интервалами для расписаний крона
 
 register_activation_hook( __FILE__, 'wfm_subscriber_create_table' );
 register_deactivation_hook( __FILE__, 'wfm_subscriber_deactivate' );
@@ -52,7 +53,7 @@ function wfm_subscriber_admin_menu(){
 	add_submenu_page( 'wfm-subscriber-options', 'Параметры', 'Параметры', 'manage_options', 'wfm-subscriber-options', 'wfm_subscriber_options_menu' );
 	add_submenu_page( 'wfm-subscriber-options', 'Подписчики', 'Подписчики', 'manage_options', 'wfm-subscriber-subpage', 'wfm_subscriber_subpage' );
 
-    add_action( 'admin_enqueue_scripts', 'wfm_admin_scripts' );
+	add_action( 'admin_enqueue_scripts', 'wfm_admin_scripts' );
 }
 
 function wfm_subscriber_admin_settings(){
