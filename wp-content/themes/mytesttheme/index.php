@@ -11,8 +11,8 @@
                     <img class="card-img-top" src=".../100px180/" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
-                        <p class="card-text"><?php the_content(''); //the_excerpt(); ?></p>
-<!--                        <p class="card-text">--><?php //the_excerpt(); // Выводит не текст поста, а отрывок поста, который заполняется в отдельном поле ?><!--</p>-->
+<!--                        <p class="card-text">--><?php //the_content(''); //the_excerpt(); ?><!--</p>-->
+                        <p class="card-text"><?php the_excerpt(); // Выводит не текст поста, а отрывок поста, который заполняется в отдельном поле ?></p>
                         <a href="<?php the_permalink(); ?>" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
@@ -26,8 +26,5 @@
         <?php endif; ?>
     </div>
 </div>
-
-
-
 
 <?php get_footer(); ?>
