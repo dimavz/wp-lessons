@@ -7,7 +7,6 @@ function test_scripts(){
     wp_enqueue_style('test-bootstrapcss', get_template_directory_uri() . '/assets/bootstrap/css/bootstrap.min.css');
     wp_enqueue_style('test-style', get_stylesheet_uri());
 
-    //wp_enqueue_script('jquery');
     wp_deregister_script( 'jquery' );
     wp_register_script( 'jquery', '//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js', array(), false, true);
     //wp_enqueue_script( 'jquery' );
