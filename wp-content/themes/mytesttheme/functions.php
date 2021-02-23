@@ -14,3 +14,15 @@ function test_scripts(){
     wp_enqueue_script('test-bootstrapjs', get_template_directory_uri() . '/assets/bootstrap/js/bootstrap.min.js', array('jquery'), false, true);
 }
 add_action('wp_enqueue_scripts', 'test_scripts');
+
+// Добавляем фильтр для удаления ненужных размеров при загрузке картинки
+add_filter( 'intermediate_image_sizes', 'delete_intermediate_image_sizes' );
+function delete_intermediate_image_sizes( $sizes ){
+    // размеры которые нужно удалить
+    return array_diff( $sizes, [
+        'medium_large',
+        'large',
+        '1536x1536',
+        '2048x2048',
+    ] );
+}
