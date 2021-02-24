@@ -44,6 +44,8 @@ function mytesttheme_setup(){
 // в functions.php мы регистрируем дополнительный размер картинки так:
     add_image_size( 'spec_thumb', 300, 200, true );
 // далее в цикле WP loop выводим этот размер так: the_post_thumbnail( 'spec_thumb' );
+    // Добавляем поддержку title страницы. Обязательно в header.php должна быть вызвана функция wp_head();
+    add_theme_support( 'title-tag' );
 }
 
 // Меняем шаблон Pagination
