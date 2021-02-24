@@ -26,3 +26,23 @@ function delete_intermediate_image_sizes( $sizes ){
         '2048x2048',
     ] );
 }
+
+// Регистрирует поддержку новых возможностей темы в WordPress
+//add_theme_support( $feature, $formats );
+
+//Позволяет устанавливать миниатюру посту. Доступна с версии 2.9.
+// Вы можете передать второй аргумент функции в виде массива, в котором указать для каких типов постов разрешить миниатюры:
+//add_theme_support( 'post-thumbnails' );
+//add_theme_support( 'post-thumbnails', array( 'post' ) );          // Только для post
+//add_theme_support( 'post-thumbnails', array( 'page' ) );          // Только для page
+//add_theme_support( 'post-thumbnails', array( 'post', 'movie' ) ); // Для post и movie типов
+
+add_action('after_setup_theme','mytesttheme_setup');
+function mytesttheme_setup(){
+    add_theme_support( 'post-thumbnails' );
+    // Если нас не устраивают стандартные размеры картинок [thumbnail, medium, large, full], то мы можем добавить свой
+// в functions.php мы регистрируем дополнительный размер картинки так:
+    add_image_size( 'spec_thumb', 300, 200, true );
+// далее в цикле WP loop выводим этот размер так: the_post_thumbnail( 'spec_thumb' );
+}
+
