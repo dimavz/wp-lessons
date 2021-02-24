@@ -46,3 +46,22 @@ function mytesttheme_setup(){
 // далее в цикле WP loop выводим этот размер так: the_post_thumbnail( 'spec_thumb' );
 }
 
+// Меняем шаблон Pagination
+add_filter('navigation_markup_template', 'my_navigation_template', 10, 2 );
+function my_navigation_template( $template, $class ){
+    /*
+    Вид базового шаблона:
+    <nav class="navigation %1$s" role="navigation" aria-label="%4$s">
+		<h2 class="screen-reader-text">%2$s</h2>
+		<div class="nav-links">%3$s</div>
+	</nav>';
+    */
+
+    return '
+	<nav class="navigation" role="navigation">
+		<div class="nav-links">%3$s</div>
+	</nav>    
+	';
+}
+
+

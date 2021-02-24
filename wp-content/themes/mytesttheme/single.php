@@ -7,6 +7,9 @@
 
                 <div class="col-md-12">
                     <div class="card">
+                        <div class="card-header">
+                            <?php the_title(); ?>
+                        </div>
                         <?php
                         // Выводим картинку поста
                         if (has_post_thumbnail()) { // Проверяем прикреплено ли к записи изображение
@@ -24,8 +27,7 @@
                         ?>
 <!--                        <img class="card-img-top" src=".../100px180/" alt="Card image cap">-->
                         <div class="card-body">
-                            <h1 class="card-title"><?php the_title(); ?></h1>
-                            <p class="card-text"><?php the_content(''); ?></p>
+                            <div class="card-text"><?php the_content(''); ?></div>
                         </div>
                     </div>
                 </div>
