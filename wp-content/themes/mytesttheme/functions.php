@@ -1,8 +1,10 @@
 <?php
-
+// Подключение класса для кастомизации вывода меню
+require __DIR__ . '/assets/helpers/walker_menu.php';
 /*
  * Подключение скриптов и стилей
  */
+
 function test_scripts(){
     wp_enqueue_style('test-bootstrapcss', get_template_directory_uri() . '/assets/bootstrap/css/bootstrap.min.css');
     wp_enqueue_style('test-style', get_stylesheet_uri());
