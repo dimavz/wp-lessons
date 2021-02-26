@@ -46,6 +46,11 @@ function mytesttheme_setup(){
 // далее в цикле WP loop выводим этот размер так: the_post_thumbnail( 'spec_thumb' );
     // Добавляем поддержку title страницы. Обязательно в header.php должна быть вызвана функция wp_head();
     add_theme_support( 'title-tag' );
+    // Добавляем в тему поддержку меню
+    register_nav_menus( array(
+        'header_menu' => 'Выводится в шапке',
+        'footer_menu' => 'Выводится в футере',
+    ) );
 }
 
 // Меняем шаблон Pagination

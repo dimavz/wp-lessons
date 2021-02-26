@@ -8,6 +8,17 @@
     <?php wp_head(); ?>
 </head>
 <body>
+<?php
+$args = array(
+//        'menu' => 'Основное меню', // выводится по названию меню. На практике практически не используется
+    'theme_location'=> 'header_menu', // На практиче указывается идентификатор меню, который мы добавляли в функцию register_nav_menus()
+    'container'            => 'nav',
+    'container_class'      => 'navbar navbar-expand-lg navbar-light bg-light',
+    'items_wrap'           => '<ul id="%1$s" class="navbar-nav mr-auto">%3$s</ul>',
+    'theme_location'=> 'header_menu'
+);
+wp_nav_menu($args);
+?>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="<?php echo home_url(); ?>"><?php bloginfo('name'); ?></a>
@@ -18,7 +29,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!--<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
@@ -45,7 +56,7 @@
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
-    </div>-->
+    </div>
 </nav>
 
 <div class="wrapper">
