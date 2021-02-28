@@ -1,77 +1,85 @@
 <?php get_header(); ?>
 
-
     <div class="container">
-        <div class="row">
-            <!-- post navigation -->
-            <?php the_posts_pagination(array(
-                    'type' => 'list',
-                )
-            ); ?>
-            <!-- Цикл WP loop -->
-            <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-                <!-- post -->
-
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
-                        </div>
-                        <!--                    <img class="card-img-top" src=".../100px180/" alt="Card image cap">-->
-                        <div class="card-body">
-                            <?php
-                            // Выводим картинку поста
-                            if (has_post_thumbnail()) { // Проверяем прикреплено ли к записи изображение
-                                //Размер миниатюры, которую нужно получить.
-                                // Может быть строкой: thumbnail, medium, large, full
-                                // или массивом из двух элементов (ширина и высота картинки): array(32, 32).
-                                //the_post_thumbnail( 'thumbnail' ); // пример
-                                //the_post_thumbnail( array(200, 120) ); // пример произвольного массива
-                                // Если нас не устраивают стандартные размеры картинок [thumbnail, medium, large, full], то мы можем добавить свой
-                                // в functions.php мы регистрируем дополнительный размер картинки так: add_image_size( 'spec_thumb', 100, 180, true );
-                                //$img_attr = array('class' => "card-img-top");
-                                //the_post_thumbnail('spec_thumb',$img_attr);
-//                            the_post_thumbnail('spec_thumb');
-                                ?>
-                                <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
-                                    <!--                                --><?php //the_post_thumbnail('spec_thumb'); ?>
-                                    <?php the_post_thumbnail('thumbnail', array('class' => 'float-left mr-3')); ?>
-                                </a>
-                                <?php
-                            } else {
-                                ?>
-                                <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
-                                    <img src="https://via.placeholder.com/150x150?text=No+Image" alt="Card image cap"
-                                         class="float-left mr-3">
-                                </a>
-                                <?php
-                            }
-                            ?>
-                            <!--                        <p class="card-text">-->
-                            <?php //the_content(''); //the_excerpt(); ?><!--</p>-->
-                            <div class="card-text">
-                                <?php the_excerpt(); // Выводит не текст поста, а отрывок поста, который заполняется в отдельном поле ?>
-                                <a href="<?php the_permalink(); ?>" class="btn btn-primary">Read more...</a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-            <?php endwhile; ?>
-                <!-- post navigation -->
-                <?php the_posts_pagination(array(
-                        'screen_reader_text' => 'Навигация:',
-                        'show_all' => false,
-                        'mid_size' => 1,
-                        'type' => 'list',
-                    )
-                ); ?>
+    <div class="row">
+        <?php if (!is_active_sidebar('right-sidebar')): ?>
+        <div class="col-md-12">
             <?php else: ?>
-                <!-- no posts found -->
-                <p>Постов нет...</p>
-            <?php endif; ?>
-        </div>
-    </div>
+            <div class="col-md-9">
+                <?php endif; ?>
+                <div class="row">
+                    <!-- Цикл WP loop -->
+                    <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+                        <!-- post -->
+
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                                    </h5>
+                                </div>
+                                <!--                    <img class="card-img-top" src=".../100px180/" alt="Card image cap">-->
+                                <div class="card-body">
+                                    <?php
+                                    // Выводим картинку поста
+                                    if (has_post_thumbnail()) { // Проверяем прикреплено ли к записи изображение
+                                        //Размер миниатюры, которую нужно получить.
+                                        // Может быть строкой: thumbnail, medium, large, full
+                                        // или массивом из двух элементов (ширина и высота картинки): array(32, 32).
+                                        //the_post_thumbnail( 'thumbnail' ); // пример
+                                        //the_post_thumbnail( array(200, 120) ); // пример произвольного массива
+                                        // Если нас не устраивают стандартные размеры картинок [thumbnail, medium, large, full], то мы можем добавить свой
+                                        // в functions.php мы регистрируем дополнительный размер картинки так: add_image_size( 'spec_thumb', 100, 180, true );
+                                        //$img_attr = array('class' => "card-img-top");
+                                        //the_post_thumbnail('spec_thumb',$img_attr);
+//                            the_post_thumbnail('spec_thumb');
+                                        ?>
+                                        <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
+                                            <!--                                --><?php //the_post_thumbnail('spec_thumb'); ?>
+                                            <?php the_post_thumbnail('thumbnail', array('class' => 'float-left mr-3')); ?>
+                                        </a>
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
+                                            <img src="https://via.placeholder.com/150x150?text=No+Image"
+                                                 alt="Card image cap"
+                                                 class="float-left mr-3">
+                                        </a>
+                                        <?php
+                                    }
+                                    ?>
+                                    <!--                        <p class="card-text">-->
+                                    <?php //the_content(''); //the_excerpt(); ?><!--</p>-->
+                                    <div class="card-text">
+                                        <?php the_excerpt(); // Выводит не текст поста, а отрывок поста, который заполняется в отдельном поле ?>
+                                        <a href="<?php the_permalink(); ?>" class="btn btn-primary">Read more...</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    <?php endwhile; ?>
+                        <!-- post navigation -->
+                        <?php the_posts_pagination(array(
+                                'screen_reader_text' => 'Навигация:',
+                                'show_all' => false,
+                                'mid_size' => 1,
+                                'type' => 'list',
+                            )
+                        ); ?>
+                    <?php else: ?>
+                        <!-- no posts found -->
+                        <p>Постов нет...</p>
+                    <?php endif; ?>
+                </div><!-- end .row-->
+            </div><!-- end .col-md-9-->
+            <div class="col-md-3">
+                <?php get_sidebar('right'); // Подключаем шаблон сайдбара sidebar-right.php. Без параметра name
+                // подключается шаблон sidebar.php?>
+            </div><!-- end .col-md-3-->
+        </div><!-- end .row-->
+    </div><!-- end .container-->
 
 <?php get_footer(); ?>

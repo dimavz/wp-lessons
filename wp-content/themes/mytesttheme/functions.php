@@ -73,4 +73,36 @@ function my_navigation_template( $template, $class ){
 	';
 }
 
+function mytesttheme_widgets_init(){
+
+//    $args = array(
+//        'name'          => 'Sidebar %d',
+//        'id'            => "sidebar",
+//        'before_widget' => '<li id="%1$s" class="widget %2$s">',
+//        'after_widget'  => '</li>',
+//        'before_title'  => '<h2 class="widgettitle">',
+//        'after_title'   => '</h2>'
+//    );
+//    register_sidebars( 2, $args ); // Регистрирует несколько панелей виджетов (место в админке куда виджеты будут размещаться)
+
+    $args1 = array(
+        'name'=>'Правый сайдбар',
+        'id'=>'right-sidebar', // Идентификатор панели виджетов, используется в функции dynamic_sidebar() для вывода виджетов
+        'description'=>'Область для виджетов в правом сайдбаре',
+        'before_widget'  => '',
+        'after_widget'   => "\n",
+    );
+    $args2 = array(
+        'name'=>'Левый сайдбар',
+        'id'=>'left-sidebar', // Идентификатор панели виджетов, используется в функции dynamic_sidebar() для вывода виджетов
+        'description'=>'Область для виджетов в левом сайдбаре',
+        'before_widget'  => '',
+        'after_widget'   => "\n",
+    );
+    register_sidebar($args1); // Регистрирует панель виджетов (место в админке куда виджеты будут размещаться)
+    register_sidebar($args2); // Регистрирует панель виджетов (место в админке куда виджеты будут размещаться)
+}
+
+add_action('widgets_init','mytesttheme_widgets_init');
+
 
