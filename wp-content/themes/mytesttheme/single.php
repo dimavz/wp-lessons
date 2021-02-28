@@ -1,11 +1,11 @@
 <?php get_header(); ?>
 
-
     <div class="container">
         <div class="row">
-            <?php while ( have_posts() ) : the_post(); ?>
-
-                <div class="col-md-12">
+            <?php get_sidebar('left'); // Подключаем шаблон сайдбара sidebar-left.php. Без параметра name
+            // подключается шаблон sidebar.php?>
+            <div class="col">
+                <?php while (have_posts()) : the_post(); ?>
                     <div class="card">
                         <div class="card-header">
                             <?php the_title(); ?>
@@ -25,18 +25,17 @@
                             the_post_thumbnail('full');
                         }
                         ?>
-<!--                        <img class="card-img-top" src=".../100px180/" alt="Card image cap">-->
+                        <!--                        <img class="card-img-top" src=".../100px180/" alt="Card image cap">-->
                         <div class="card-body">
                             <div class="card-text"><?php the_content(''); ?></div>
                         </div>
-                    </div>
-                </div>
+                    </div><!-- end .card  -->
+                <?php endwhile; ?>
+            </div><!-- end .col  -->
+            <?php get_sidebar('right'); // Подключаем шаблон сайдбара sidebar-right.php. Без параметра name
+            // подключается шаблон sidebar.php?>
+        </div><!-- end .row -->
 
-            <?php endwhile; ?>
-        </div>
-    </div>
-
-
-
+    </div><!-- end .container -->
 
 <?php get_footer(); ?>

@@ -2,11 +2,9 @@
 
     <div class="container">
     <div class="row">
-        <?php if (!is_active_sidebar('right-sidebar')): ?>
-        <div class="col-md-12">
-            <?php else: ?>
-            <div class="col-md-9">
-                <?php endif; ?>
+        <?php get_sidebar('left'); // Подключаем шаблон сайдбара sidebar-left.php. Без параметра name
+        // подключается шаблон sidebar.php?>
+            <div class="col">
                 <div class="row">
                     <!-- Цикл WP loop -->
                     <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
@@ -74,11 +72,9 @@
                         <p>Постов нет...</p>
                     <?php endif; ?>
                 </div><!-- end .row-->
-            </div><!-- end .col-md-9-->
-            <div class="col-md-3">
+            </div><!-- end .col -->
                 <?php get_sidebar('right'); // Подключаем шаблон сайдбара sidebar-right.php. Без параметра name
                 // подключается шаблон sidebar.php?>
-            </div><!-- end .col-md-3-->
         </div><!-- end .row-->
     </div><!-- end .container-->
 

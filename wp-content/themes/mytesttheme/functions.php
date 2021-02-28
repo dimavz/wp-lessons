@@ -91,6 +91,9 @@ function mytesttheme_widgets_init(){
         'description'=>'Область для виджетов в правом сайдбаре',
         'before_widget'  => '',
         'after_widget'   => "\n",
+        'class'=>'test2', // Добавляет класс в панель виджета в админке
+        'before_title'   => '<h3 class="widgettitle">', // Изменяет заголовок виджета во front-end
+        'after_title'    => "</h3>\n",
     );
     $args2 = array(
         'name'=>'Левый сайдбар',
