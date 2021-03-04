@@ -7,8 +7,14 @@
 
     <?php wp_head(); ?>
 </head>
-<body>
+<body <?php body_class();?>>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <?php if (has_custom_logo()):?>
+    <a class="navbar-brand" href="<?php echo home_url(); ?>" title="<?php bloginfo('name'); ?>">
+        <?php the_custom_logo();?>
+    </a>
+    <?php endif; ?>
     <a class="navbar-brand" href="<?php echo home_url(); ?>"><?php bloginfo('name'); ?></a>
 <!--    <span>-->
 <!--        --><?php //bloginfo('description'); ?>

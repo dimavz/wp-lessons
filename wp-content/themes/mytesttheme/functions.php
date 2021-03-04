@@ -41,8 +41,9 @@ function delete_intermediate_image_sizes( $sizes ){
 
 add_action('after_setup_theme','mytesttheme_setup');
 function mytesttheme_setup(){
+    //Включаем поддержку темой миниатюр картинок в записях (посты, страницы)
     add_theme_support( 'post-thumbnails' );
-    // Если нас не устраивают стандартные размеры картинок [thumbnail, medium, large, full], то мы можем добавить свой
+    // Если нас не устраивают стандартные размеры картинок [thumbnail, medium, large, full], то мы можем добавить свой размер картинки
 // в functions.php мы регистрируем дополнительный размер картинки так:
     add_image_size( 'spec_thumb', 300, 200, true );
 // далее в цикле WP loop выводим этот размер так: the_post_thumbnail( 'spec_thumb' );
@@ -53,6 +54,27 @@ function mytesttheme_setup(){
         'header_menu' => 'Выводится в шапке',
         'footer_menu' => 'Выводится в футере',
     ) );
+
+    // Добавляем поддержку темой кастомного логотипа в кастомайзере темы;
+    $params = array(
+        'height'      => 150,
+        'width'       => 150,
+        'flex-width'  => false,
+        'flex-height' => false,
+        'header-text' => '',
+        'unlink-homepage-logo' => false, // WP 5.5
+    );
+    add_theme_support( 'custom-logo',$params );
+
+    //Добавляем поддержку темой кастомного бэграунда в кастомайзере темы. Доступна с версии 3.4.
+    $defaults = array(
+        'default-color'          => 'fff',
+        'default-image'          => get_template_directory_uri() . '/assets/images/background.png',
+        'wp-head-callback'       => '_custom_background_cb',
+        'admin-head-callback'    => '',
+        'admin-preview-callback' => ''
+    );
+    add_theme_support( 'custom-background', $defaults );
 }
 
 // Меняем шаблон Pagination
