@@ -1,9 +1,13 @@
 <?php
-// Подключение класса для кастомизации вывода меню
-require __DIR__ . '/assets/helpers/walker_menu.php';
 /*
  * Подключение скриптов и стилей
  */
+
+// Подключение класса для кастомизации вывода меню
+require __DIR__ . '/assets/helpers/walker_menu.php';
+
+// Подключаем свой кастомайзер темы
+include_once __DIR__ . '/assets/includes/customizer.php';
 
 function test_scripts(){
     wp_enqueue_style('test-bootstrapcss', get_template_directory_uri() . '/assets/bootstrap/css/bootstrap.min.css');
@@ -138,5 +142,7 @@ function mytesttheme_widgets_init(){
 }
 
 add_action('widgets_init','mytesttheme_widgets_init');
+
+
 
 

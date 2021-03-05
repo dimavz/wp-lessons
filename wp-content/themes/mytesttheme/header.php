@@ -8,6 +8,7 @@
     <?php wp_head(); ?>
 </head>
 <body <?php body_class();?>>
+
 <?php if(is_front_page()): // Проверяем является ли страница главной страницой сайта?>
     <?php if(has_header_image()): // Проверяем установлено ли изображение для хэдера в кастомайзере темы?>
         <div class="header-image" style="background: url(<?php echo get_custom_header()->url?>) center no-repeat; background-size: cover;height: 30vh;"></div>
