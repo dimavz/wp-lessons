@@ -137,11 +137,37 @@ function mytesttheme_widgets_init(){
         'before_widget'  => '',
         'after_widget'   => "\n",
     );
+
+    $args3 = array(
+        'name'=>'Cайдбар поиска',
+        'id'=>'search-sidebar', // Идентификатор панели виджетов, используется в функции dynamic_sidebar() для вывода виджетов
+        'description'=>'Область для виджетов в панели поиска',
+        'before_widget'  => '',
+        'after_widget'   => "\n",
+    );
     register_sidebar($args1); // Регистрирует панель виджетов (место в админке куда виджеты будут размещаться)
     register_sidebar($args2); // Регистрирует панель виджетов (место в админке куда виджеты будут размещаться)
+    register_sidebar($args3); // Регистрирует панель виджетов (место в админке куда виджеты будут размещаться)
 }
 
 add_action('widgets_init','mytesttheme_widgets_init');
+
+// Кастомизация формы поиска
+add_filter( 'get_search_form', 'mytesttheme_filter_search_form', 10, 2 );
+function mytesttheme_filter_search_form( $form, $args ){
+    // Изменяем...
+//    echo '<pre>';
+//    print_r($form);
+//    echo '</pre>';
+//    exit();
+    $form = '<form class="form-inline my-2 my-lg-0 searchform" role="search" method="get" id="searchform" action="">
+<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="s">
+<button id="searchsubmit" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>';
+
+    return $form;
+}
+
 
 
 
