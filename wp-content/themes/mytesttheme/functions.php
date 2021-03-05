@@ -56,7 +56,7 @@ function mytesttheme_setup(){
     ) );
 
     // Добавляем поддержку темой кастомного логотипа в кастомайзере темы;
-    $params = array(
+    $l_params = array(
         'height'      => 150,
         'width'       => 150,
         'flex-width'  => false,
@@ -64,17 +64,26 @@ function mytesttheme_setup(){
         'header-text' => '',
         'unlink-homepage-logo' => false, // WP 5.5
     );
-    add_theme_support( 'custom-logo',$params );
+    add_theme_support( 'custom-logo',$l_params );
 
     //Добавляем поддержку темой кастомного бэграунда в кастомайзере темы. Доступна с версии 3.4.
-    $defaults = array(
+    $bg_params = array(
         'default-color'          => 'fff',
         'default-image'          => get_template_directory_uri() . '/assets/images/white-ornamic.png',
         'wp-head-callback'       => '_custom_background_cb',
         'admin-head-callback'    => '',
         'admin-preview-callback' => ''
     );
-    add_theme_support( 'custom-background', $defaults );
+    add_theme_support( 'custom-background', $bg_params );
+
+    //Добавляем поддержку темой кастомного изображения для хэдэра в кастомайзере темы. Доступна с версии 3.4.
+    $h_params = array(
+        'default-image'          => get_template_directory_uri() . '/assets/images/white-overlay-rings.png',
+        'width'                  => 1600,
+        'height'                 => 1200,
+    );
+
+    add_theme_support( 'custom-header',$h_params);
 }
 
 // Меняем шаблон Pagination
