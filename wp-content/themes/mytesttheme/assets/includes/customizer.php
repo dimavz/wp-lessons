@@ -22,10 +22,10 @@ function test_customizer_init(WP_Customize_Manager $wp_customize){
     $wp_customize->add_section(
         'decoration',       // id секции
         array(
-            'title'       => __( 'Decoration', 'mytheme' ),
+            'title'       => __( 'Моя секция', 'mytheme' ),
             'description' => __( 'This is description', 'mytheme' ),
             'priority'    => 10,
-            'panel'       => 'mytheme_custom_panel'  // id родительской панели
+//            'panel'       => 'mytheme_custom_panel'  // id родительской панели Если раскоментировать строку, то секция будет выводиться в панеле
         )
     );
 
