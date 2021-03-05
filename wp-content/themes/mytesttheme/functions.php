@@ -69,7 +69,7 @@ function mytesttheme_setup(){
     //Добавляем поддержку темой кастомного бэграунда в кастомайзере темы. Доступна с версии 3.4.
     $defaults = array(
         'default-color'          => 'fff',
-        'default-image'          => get_template_directory_uri() . '/assets/images/background.png',
+        'default-image'          => get_template_directory_uri() . '/assets/images/white-ornamic.png',
         'wp-head-callback'       => '_custom_background_cb',
         'admin-head-callback'    => '',
         'admin-preview-callback' => ''
