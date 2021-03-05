@@ -1,6 +1,15 @@
 <?php get_header(); ?>
 
     <div class="container">
+        <div class="row">
+            <div class="col-9">
+            </div>
+            <div class="col">
+                <p class="test-phone"<?php if(false === get_theme_mod('test_show_phone')) echo ' style="display: none;"' ?>>
+                    Телефон: <span><?php echo get_theme_mod('test_phone'); ?></span>
+                </p>
+            </div>
+        </div>
     <div class="row">
         <?php get_sidebar('left'); // Подключаем шаблон сайдбара sidebar-left.php. Без параметра name
         // подключается шаблон sidebar.php?>
