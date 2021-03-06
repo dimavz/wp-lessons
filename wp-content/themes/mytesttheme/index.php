@@ -60,7 +60,9 @@
                                     <?php //the_content(''); //the_excerpt(); ?><!--</p>-->
                                     <div class="card-text">
                                         <?php the_excerpt(); // Выводит не текст поста, а отрывок поста, который заполняется в отдельном поле ?>
-                                        <a href="<?php the_permalink(); ?>" class="btn btn-primary">Read more...</a>
+                                        <a href="<?php the_permalink(); ?>" class="btn btn-primary">
+                                            <?php _e('Читать далее...','mytesttheme')?>
+                                        </a>
                                     </div>
 
                                 </div>

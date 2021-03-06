@@ -12,8 +12,8 @@ function test_customizer_init(WP_Customize_Manager $wp_customize){
     //Создаем новую панель. Обратите внимание, что если в панели нет ни одной секции, она не отобразится.
 
     $p_args = array(
-        'title'=>'Моя кастомная панель настроек темы',
-        'description'=>'Моя тестовая панель настроек'
+        'title'=>__( 'Моя кастомная панель настроек темы', 'mytesttheme' ),
+        'description'=>__( 'Моя тестовая панель настроек', 'mytesttheme' ),
     );
 
     $wp_customize->add_panel('mytheme_custom_panel',$p_args);
@@ -22,8 +22,8 @@ function test_customizer_init(WP_Customize_Manager $wp_customize){
     $wp_customize->add_section(
         'decoration',       // id секции
         array(
-            'title'       => __( 'Моя секция', 'mytheme' ),
-            'description' => __( 'This is description', 'mytheme' ),
+            'title'       => __( 'Моя секция', 'mytesttheme' ),
+            'description' => __( 'Описание моей секции', 'mytesttheme' ),
             'priority'    => 10,
 //            'panel'       => 'mytheme_custom_panel'  // id родительской панели Если раскоментировать строку, то секция будет выводиться в панеле
         )
@@ -39,7 +39,7 @@ function test_customizer_init(WP_Customize_Manager $wp_customize){
             $wp_customize,
             'mytesttheme_link_color',
             array(
-                'label' => 'Цвет ссылок',
+                'label' => __( 'Цвет ссылок', 'mytesttheme' ),
 //                'section' => 'colors',
 //                'section' => 'title_tagline',
                 'section' => 'decoration',
@@ -50,7 +50,7 @@ function test_customizer_init(WP_Customize_Manager $wp_customize){
 
     // custom section
     $wp_customize->add_section('test_site_data', array(
-        'title' => 'Информация сайта',
+        'title' => __( 'Информация сайта', 'mytesttheme' ),
         'priority' => 10,
     ));
     $wp_customize->add_setting('test_phone', array(
@@ -60,7 +60,7 @@ function test_customizer_init(WP_Customize_Manager $wp_customize){
     $wp_customize->add_control(
         'test_phone',
         array(
-            'label' => 'Телефон',
+            'label' => __( 'Телефон', 'mytesttheme' ),
             'section' => 'test_site_data',
             'type' => 'text',
         )
@@ -73,7 +73,7 @@ function test_customizer_init(WP_Customize_Manager $wp_customize){
     $wp_customize->add_control(
         'test_show_phone',
         array(
-            'label' => 'Показывать телефон',
+            'label' => __( 'Показывать телефон', 'mytesttheme' ),
             'section' => 'test_site_data',
             'type' => 'checkbox',
         )
