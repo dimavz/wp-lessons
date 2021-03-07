@@ -5,14 +5,14 @@
             <div class="col-9">
             </div>
             <div class="col">
-                <p class="test-phone"<?php if(false === get_theme_mod('test_show_phone')) echo ' style="display: none;"' ?>>
+                <p class="test-phone"<?php if (false === get_theme_mod('test_show_phone')) echo ' style="display: none;"' ?>>
                     Телефон: <span><?php echo get_theme_mod('test_phone'); ?></span>
                 </p>
             </div>
         </div>
-    <div class="row">
-        <?php get_sidebar('left'); // Подключаем шаблон сайдбара sidebar-left.php. Без параметра name
-        // подключается шаблон sidebar.php?>
+        <div class="row">
+            <?php get_sidebar('left'); // Подключаем шаблон сайдбара sidebar-left.php. Без параметра name
+            // подключается шаблон sidebar.php?>
             <div class="col">
                 <div class="row">
                     <!-- Цикл WP loop -->
@@ -61,7 +61,7 @@
                                     <div class="card-text">
                                         <?php the_excerpt(); // Выводит не текст поста, а отрывок поста, который заполняется в отдельном поле ?>
                                         <a href="<?php the_permalink(); ?>" class="btn btn-primary">
-                                            <?php _e('Читать далее...','mytesttheme')?>
+                                            <?php _e('Читать далее...', 'mytesttheme') ?>
                                         </a>
                                     </div>
 
@@ -84,9 +84,20 @@
                     <?php endif; ?>
                 </div><!-- end .row-->
             </div><!-- end .col -->
-                <?php get_sidebar('right'); // Подключаем шаблон сайдбара sidebar-right.php. Без параметра name
-                // подключается шаблон sidebar.php?>
+            <?php get_sidebar('right'); // Подключаем шаблон сайдбара sidebar-right.php. Без параметра name
+            // подключается шаблон sidebar.php?>
         </div><!-- end .row-->
     </div><!-- end .container-->
-
+<?php
+$query = new WP_Query('cat=22,31&posts_per_page=15'); // Выборка записей из категорий с ID 22 и 31
+//и пагинацией вывода всех записей на страницу
+if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>
+    <!-- post -->
+    <?php the_title('<h4>', '</h4>'); ?>
+<?php endwhile; ?>
+    <!-- post navigation -->
+<?php else: ?>
+    <!-- no posts found -->
+    <p>Постов нет...</p>
+<?php endif; ?>
 <?php get_footer(); ?>
