@@ -89,7 +89,11 @@
         </div><!-- end .row-->
     </div><!-- end .container-->
 <?php
-$query = new WP_Query('cat=22,31&posts_per_page=-1'); // Выборка записей из категорий с ID 22 и 31
+$params = array(
+    'cat'=>'22,31',
+    'posts_per_page'=>-1,
+);
+$query = new WP_Query($params); // Выборка записей из категорий с ID 22 и 31
 //и пагинацией вывода всех записей на страницу
 if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>
     <!-- post -->
